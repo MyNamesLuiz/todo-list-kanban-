@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors'); // Importação necessária para o front funcionar
+const cors = require('cors'); 
 const { testConnection } = require('./src/config/database');
 const Tarefa = require('./src/models/tarefa');
 const tarefasRoutes = require('./src/routes/tarefasRoutes');
@@ -8,7 +8,7 @@ const tarefasRoutes = require('./src/routes/tarefasRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// --- MIDDLEWARES CRUCIAIS PARA COMUNICAÇÃO ---
+
 app.use(cors()); 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
@@ -39,27 +39,24 @@ app.use((req, res) => {
 // Inicialização do Banco e Servidor
 async function iniciarServidor() {
   try {
-    // 1. Testa conexão com o banco de dados
     await testConnection();
     
-    // 2. Sincroniza a tabela (garante que a coluna 'descricao' exista no SQLite)
     await Tarefa.sync();
-    console.log('✅ Banco de dados pronto!');
+    console.log('Banco de dados pronto!');
     
-    // 3. Inicia o servidor
     app.listen(PORT, () => {
-      console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+      console.log(`Servidor rodando em http://localhost:${PORT}`);
     }).on('error', (err) => {
       if (err.code === 'EADDRINUSE') {
-        console.error(`❌ Porta ${PORT} ocupada!`);
-        console.error(`👉 Dica: Feche o terminal anterior ou rode 'npx kill-port ${PORT}'`);
+        console.error(` Porta ${PORT} ocupada!`);
+        console.error(` Dica: Feche o terminal anterior ou rode 'npx kill-port ${PORT}'`);
       } else {
-        console.error('❌ Erro ao iniciar servidor:', err);
+        console.error(' Erro ao iniciar servidor:', err);
       }
     });
     
   } catch (error) {
-    console.error('❌ Erro ao iniciar:', error);
+    console.error(' Erro ao iniciar:', error);
     process.exit(1);
   }
 }

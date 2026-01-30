@@ -1,12 +1,7 @@
-/**
- * Configurações e Estado Global
- */
-const API_URL = 'http://localhost:3000/tarefas';
-let todasTarefas = []; // Cache local para permitir busca sem novas requisições
 
-/**
- * Inicialização
- */
+const API_URL = 'http://localhost:3000/tarefas';
+let todasTarefas = []; 
+
 document.addEventListener('DOMContentLoaded', () => {
     carregarTarefas();
     configurarEventos();
@@ -19,34 +14,31 @@ function configurarEventos() {
         e.preventDefault();
         
         const inputTitulo = document.getElementById('titulo');
-        const inputDescricao = document.getElementById('descricao'); // Captura o campo descrição
+        const inputDescricao = document.getElementById('descricao');
         
         const titulo = inputTitulo.value.trim();
-        const descricao = inputDescricao.value.trim(); // Pega o valor digitado
+        const descricao = inputDescricao.value.trim(); 
         
         if (titulo) {
-            // Passa os dois valores para a função
+            
             await criarTarefa(titulo, descricao);
             
             inputTitulo.value = '';
-            inputDescricao.value = ''; // Limpa o campo após criar
+            inputDescricao.value = ''; 
             inputTitulo.focus();
         }
     });
 }
 
-/**
- * Funções de Comunicação com a API (Fetch)
- */
 
-// Listar Tarefas (GET)
+// Listar Tarefas 
 async function carregarTarefas() {
     try {
         const response = await fetch(API_URL);
         if (!response.ok) throw new Error('Erro ao buscar dados da API');
         
         const data = await response.json();
-        // O backend retorna um objeto: { quantidade: X, tarefas: [...] }
+        
         todasTarefas = data.tarefas || []; 
         
         renderizarBoard(todasTarefas);
@@ -55,7 +47,7 @@ async function carregarTarefas() {
     }
 }
 
-// Criar Tarefa (POST)
+// Criar Tarefa 
 async function criarTarefa(titulo, descricao) {
     try {
         const response = await fetch(API_URL, {
@@ -63,7 +55,7 @@ async function criarTarefa(titulo, descricao) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            // Enviando a descrição no corpo da requisição
+            
             body: JSON.stringify({ 
                 titulo: titulo,
                 descricao: descricao, 
@@ -80,7 +72,7 @@ async function criarTarefa(titulo, descricao) {
     }
 }
 
-// Atualizar Status (PATCH)
+// Atualizar Status
 async function atualizarStatusAPI(id, novoStatus) {
     try {
         const response = await fetch(`${API_URL}/${id}/status`, {
@@ -100,7 +92,7 @@ async function atualizarStatusAPI(id, novoStatus) {
     }
 }
 
-// Deletar Tarefa (DELETE)
+// Deletar Tarefa 
 async function deletarTarefa(id) {
     if (!confirm("Deseja realmente excluir esta tarefa?")) return;
 
@@ -117,19 +109,14 @@ async function deletarTarefa(id) {
     }
 }
 
-/**
- * Lógica de Renderização e UI
- */
-
 function renderizarBoard(tarefas) {
-    // Referências das colunas no HTML
+    
     const colunas = {
         'a fazer': document.getElementById('list-a-fazer'),
         'em andamento': document.getElementById('list-em-andamento'),
         'concluída': document.getElementById('list-concluida')
     };
 
-    // Limpar todas as listas antes de renderizar
     Object.values(colunas).forEach(col => col.innerHTML = '');
 
     // Contadores
@@ -145,7 +132,7 @@ function renderizarBoard(tarefas) {
         }
     });
 
-    // Atualiza os badges de contagem (IDs: count-todo, count-doing, count-done)
+    // Atualiza os badges de contagem 
     document.getElementById('count-todo').innerText = counts['a fazer'];
     document.getElementById('count-doing').innerText = counts['em andamento'];
     document.getElementById('count-done').innerText = counts['concluída'];
@@ -173,9 +160,6 @@ function criarCardHTML(tarefa) {
     return div;
 }
 
-/**
- * Mecanismo de Busca (Filtro local)
- */
 function filtrarTarefas() {
     const termo = document.getElementById('busca').value.toLowerCase();
     
@@ -187,23 +171,20 @@ function filtrarTarefas() {
     renderizarBoard(tarefasFiltradas);
 }
 
-/**
- * Handlers de Arrastar e Soltar (Drag & Drop API)
- */
 function drag(ev) {
     ev.dataTransfer.setData("text/plain", ev.target.dataset.id);
     ev.target.style.opacity = '0.5';
 }
 
 function allowDrop(ev) {
-    ev.preventDefault(); // Necessário para permitir o drop
+    ev.preventDefault(); 
 }
 
 async function drop(ev, novoStatus) {
     ev.preventDefault();
     const id = ev.dataTransfer.getData("text/plain");
     
-    // Remove efeito visual do card caso ele ainda esteja no DOM
+    
     const cardOriginal = document.querySelector(`.card[data-id='${id}']`);
     if (cardOriginal) cardOriginal.style.opacity = '1';
 

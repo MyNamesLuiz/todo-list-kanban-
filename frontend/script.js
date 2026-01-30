@@ -1,5 +1,7 @@
 
-const API_URL = 'http://localhost:3000/tarefas';
+const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000/tarefas'
+    : `${window.location.origin}/tarefas`;
 let todasTarefas = []; 
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -5,7 +5,7 @@ Sistema de gerenciamento de tarefas com drag & drop e organização por status.
 ## 🚀 Tecnologias
 
 - **Backend:** Node.js, Express, Sequelize, SQLite
-- **Frontend:** HTML, CSS, JavaScript (Vanilla)
+- **Frontend:** HTML, CSS, JavaScript
 - **Funcionalidades:** CRUD completo, Drag & Drop, Busca em tempo real
 
 ## 📦 Instalação
@@ -13,9 +13,6 @@ Sistema de gerenciamento de tarefas com drag & drop e organização por status.
 ```bash
 # Instalar dependências
 npm install
-
-# Configurar variáveis de ambiente
-cp .env.example .env
 
 # Iniciar servidor
 npm start
@@ -37,20 +34,3 @@ npm start
 | GET | `/tarefas/:id` | Buscar por ID |
 | PATCH | `/tarefas/:id/status` | Atualizar status |
 | DELETE | `/tarefas/:id` | Deletar tarefa |
-
-## 🗂️ Estrutura do Projeto
-
-```
-├── server.js              # Servidor Express
-├── src/
-│   ├── config/            # Configuração do banco
-│   ├── models/            # Models Sequelize
-│   └── routes/            # Rotas da API
-├── index.html             # Interface do usuário
-├── script.js              # Lógica frontend
-└── style.css              # Estilos
-```
-
-## 📝 Licença
-
-MIT

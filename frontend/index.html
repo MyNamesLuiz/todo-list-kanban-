@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Flow - Gerenciador de Rotina</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i>
+                <h1>TO DO LIST TASK</h1>
+            </div>
+            
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="busca" placeholder="Buscar tarefa..." onkeyup="filtrarTarefas()">
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="add-task-container">
+            <form id="form-tarefa">
+                <div class="input-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" placeholder="O que precisa ser feito?" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" rows="2" placeholder="Detalhes da tarefa (opcional)"></textarea>
+                </div>
+                <button type="submit">
+                    <i class="fa-solid fa-plus"></i> Criar Tarefa
+                </button>
+            </form>
+        </section>
+        <div class="board">
+            
+            <div class="column" id="col-a-fazer" ondrop="drop(event, 'a fazer')" ondragover="allowDrop(event)">
+                <div class="column-header todo">
+                    <span>A Fazer</span>
+                    <span class="badge" id="count-todo">0</span>
+                </div>
+                <div class="task-list" id="list-a-fazer"></div>
+            </div>
+            <div class="column" id="col-em-andamento" ondrop="drop(event, 'em andamento')" ondragover="allowDrop(event)">
+                <div class="column-header doing">
+                    <span>Em Andamento</span>
+                    <span class="badge" id="count-doing">0</span>
+                </div>
+                <div class="task-list" id="list-em-andamento"></div>
+            </div>
+            <div class="column" id="col-concluida" ondrop="drop(event, 'concluída')" ondragover="allowDrop(event)">
+                <div class="column-header done">
+                    <span>Concluída</span>
+                    <span class="badge" id="count-done">0</span>
+                </div>
+                <div class="task-list" id="list-concluida"></div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

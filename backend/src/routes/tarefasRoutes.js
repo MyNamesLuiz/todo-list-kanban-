@@ -12,11 +12,11 @@ const {
 } = require('../controllers/tarefasController');
 
 // Definir rotas
-router.post('/', criarTarefa);           // POST /tarefas
-router.get('/', listarTarefas);          // GET /tarefas
-router.get('/:id', buscarTarefaPorId);   // GET /tarefas/:id
-router.put('/:id', atualizarTarefa);     // PUT /tarefas/:id
-router.patch('/:id/status', atualizarStatus); // PATCH /tarefas/:id/status
-router.delete('/:id', deletarTarefa);    // DELETE /tarefas/:id
+router.post('/', criarTarefa);           
+router.get('/', listarTarefas);         
+router.get('/:id', buscarTarefaPorId);   
+router.put('/:id', atualizarTarefa);     
+router.patch('/:id/status', atualizarStatus); 
+router.delete('/:id', deletarTarefa);    
 
 module.exports = router;

@@ -42,7 +42,7 @@ async function criarTarefa(req, res) {
 const listarTarefas = async (req, res) => {
   try {
     const tarefas = await Tarefa.findAll({
-      order: [['createdAt', 'DESC']] // Ordenar por data de criação
+      order: [['createdAt', 'DESC']] 
     });
 
     res.json({
@@ -185,7 +185,7 @@ const deletarTarefa = async (req, res) => {
 
     await tarefa.destroy();
 
-    res.status(204).send(); // 204 No Content - convenção REST
+    res.status(204).send(); 
 
   } catch (error) {
     console.error('Erro ao deletar tarefa:', error);
